@@ -1,0 +1,11 @@
+{
+  "name": "MyRPP",
+  "exports": {
+    ".": {
+      "import": "./index.es.js",
+      "require": "./index.cjs.js"
+    },
+    "./styles.css": "./styles-lib.css"
+  },
+  "files": ["./*"]
+}

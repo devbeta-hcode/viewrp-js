@@ -1,7 +1,7 @@
 ## Installation
 
 ```node
-  npm install git+https://github.com/haduchau321/ControlMyRPP-Reacjs.git
+  npm install github:haduchau321/ControlMyRPP-Reacjs
 ```
 
 ## import

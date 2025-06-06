@@ -23,17 +23,6 @@ import { useRef } from "react";
 const controlRef = useRef(null);
 ```
 
-## displayId
-
-```node
-import { useRef } from "react";
-const displayId = 0;
-// or
-const displayId = Math.floor(Math.random() * 999999);
-// or
-const displayId = device_id;
-```
-
 ## dataDevice
 
 ```node
@@ -49,7 +38,6 @@ const dataDevice = {
 <ControlMyRPP
   serve={`https://myrpp.org/api/v1/client/device/connect-control`}
   ref={controlRef} // useRef
-  displayId={displayId} // it is similar to key must be unique value, can be 0 if there is only 1
   dataDevice={dataDevice}
   maxWidth={320} // maximum size of width
   showAssistive={true} // show accessibility button

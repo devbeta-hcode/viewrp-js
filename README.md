@@ -51,7 +51,7 @@ const dataDevice = {
 
 ```node
 <ViewRP
-  serve={`https://myrpp.org/api/v1/client/device/connect-control`}
+  serve={`https://viewrp.com/api/v1/client/device/connect-control`}
   ref={controlRef} // useRef
   dataDevice={dataDevice}
   maxWidth={320} // maximum size of width

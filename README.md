@@ -11,12 +11,12 @@
 | **React Native**          | ⚠️ Not directly compatible                 | Uses a different rendering system (no DOM) |
 
 
-
-
 ## Installation
 
 ```node
-  npm install github:haduchau321/ViewRP-Vite
+  npm i github:devbeta-hcode/viewrp-vite
+  or 
+  npm i viewrp-vite
 ```
 
 ## import

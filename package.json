@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "description": "About This is a reactjs library developed by Control MyRPP and released by DEV BETA JOIN STOCK COMPANY, you can use components for your project. https://myrpp.org",
-  "name": "MyRPP",
+  "description": "About This is a reactjs library developed by Control ViewRP and released by DEV BETA JOIN STOCK COMPANY, you can use components for your project. https://viewrp.com",
+  "name": "ViewRP",
   "exports": {
     ".": {
       "import": "./lib.es.js",

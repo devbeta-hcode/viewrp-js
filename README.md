@@ -1,19 +1,19 @@
 ## Installation
 
 ```node
-  npm install github:haduchau321/ControlMyRPP-Reacjs
+  npm install github:haduchau321/ViewRP-reacjs
 ```
 
 ## import
 
 ```node
-import { ControlMyRPP } from "MyRPP";
+import { ViewRP } from "ViewRP";
 ```
 
 ## require
 
 ```node
-const { ControlMyRPP } = require("MyRPP");
+const { ViewRP } = require("ViewRP");
 ```
 
 ## controlRef
@@ -35,7 +35,7 @@ const dataDevice = {
 ## use
 
 ```node
-<ControlMyRPP
+<ViewRP
   serve={`https://myrpp.org/api/v1/client/device/connect-control`}
   ref={controlRef} // useRef
   dataDevice={dataDevice}

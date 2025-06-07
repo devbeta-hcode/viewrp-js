@@ -1,7 +1,22 @@
+## Supported framework (runs best on React)
+| Framework                  | Compatible with Vite-built components?    | Additional Notes                       |
+|---------------------------|--------------------------------------------|----------------------------------------|
+| **Vite + React**          | ✅ Native compatibility                     | Already based on Vite                  |
+| **Next.js**               | ✅ Fully compatible                         | Import as usual                        |
+| **Remix**                 | ✅ Compatible                               | No issues                              |
+| **Gatsby**                | ✅ Compatible                               | Use like any React package             |
+| **CRA (Create React App)**| ✅ Compatible                               | Import or install as an npm package    |
+| **Storybook**             | ✅ Great for UI testing                     | Works well                             |
+| **Electron (React UI)**   | ✅ Compatible                               | Used in the renderer process           |
+| **React Native**          | ⚠️ Not directly compatible                 | Uses a different rendering system (no DOM) |
+
+
+
+
 ## Installation
 
 ```node
-  npm install github:haduchau321/ViewRP-reacjs
+  npm install github:haduchau321/ViewRP-Vite
 ```
 
 ## import

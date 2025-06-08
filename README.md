@@ -22,13 +22,13 @@
 ## import
 
 ```node
-import { ViewRP } from "ViewRP";
+import { ViewRP } from "viewrp-js";
 ```
 
 ## require
 
 ```node
-const { ViewRP } = require("ViewRP");
+const { ViewRP } = require("viewrp-js");
 ```
 
 ## controlRef

@@ -14,9 +14,9 @@
 ## Installation
 
 ```node
-  npm i github:devbeta-hcode/viewrp-vite
+  npm i github:devbeta-hcode/viewrp-js
   or 
-  npm i viewrp-vite
+  npm i viewrp-js
 ```
 
 ## import

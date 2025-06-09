@@ -4,15 +4,15 @@
   "name": "viewrp-js",
   "exports": {
     "./Components": {
-      "import": "./lib.es.js",
-      "require": "./lib.cjs.js"
+      "import": "./Components/lib.es.js",
+      "require": "./Components/lib.cjs.js"
     },
      "./DevApi": {
-      "import": "./lib.es.js",
-      "require": "./lib.cjs.js"
+      "import": "./DevApi/lib.es.js",
+      "require": "./DevApi/lib.cjs.js"
     }
   },
-  "files": ["./*"],
+  "files": ["Components","DevApi"],
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

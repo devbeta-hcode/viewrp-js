@@ -6,6 +6,10 @@
     ".": {
       "import": "./lib.es.js",
       "require": "./lib.cjs.js"
+    },
+     "./DevApi": {
+      "import": "./lib-api.es.js",
+      "require": "./lib-api.cjs.js"
     }
   },
   "files": ["./*"],

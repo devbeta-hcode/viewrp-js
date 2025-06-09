@@ -22,13 +22,29 @@
 ## import
 
 ```node
-import { ViewRP } from "viewrp-js";
+import { ViewRP } from "viewrp-js/Components";
+import { 
+  DevApi, 
+  appEvent, 
+  keyEvent, 
+  findElEvent, 
+  clipboardEvent 
+} from "viewrp-js/DevApi";
+
 ```
 
 ## require
 
 ```node
-const { ViewRP } = require("viewrp-js");
+const { ViewRP } = require("viewrp-js/Components");
+const { 
+  DevApi, 
+  appEvent, 
+  keyEvent, 
+  findElEvent, 
+  clipboardEvent 
+} = require("viewrp-js/DevApi");
+
 ```
 
 ## controlRef

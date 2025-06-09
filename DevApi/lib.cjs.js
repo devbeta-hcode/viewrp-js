@@ -64,102 +64,23 @@ class findElement{
         this.sendData = sendData;
     }
 
-    async all(){
+    all(){
         this.data["action"] = "findElements";
-        await this.sendData(this.data);
+        return this.sendData(this.data);
     }
 
-    async click(index=0){
+    click(index=0){
         this.data["action"] = "clickElement";
         this.data["index"] = index;
-        await this.sendData(this.data);
+        return this.sendData(this.data);
     }
 
-    async setText(index=0, text){
+    setText(index=0, text){
         this.data["action"] = "setTextElement";
         this.data["index"] = index;
         this.data["text"] = text;
-        await this.sendData(this.data);
+        return this.sendData(this.data);
     }
-}
-
-class DevApi {
-  constructor(controlRef) {
-    this.controlRef = controlRef;
-  }
-
-  async sendData(data) {
-    data["taskId"] = v4();
-    return await controlRef.current.api(data);
-  }
-
-  async toast(text) {
-    return await this.sendData({ "action": "toastEvent", text: text });
-  }
-
-  async clipboard(keyName, text="") {
-    return await this.sendData({ 
-      "action": "clipboard", 
-      "keyName":keyName, 
-      text: text 
-    });
-  }
-
-  async unlockScreen(){
-    return await this.sendData({ "action": "onScreenEvent"});
-  }
-
-  async findElements(keyName, value){
-    return new findElement(keyName, value, this.sendData)
-  }
-
-  async app(command, packageName){
-    return await this.sendData({ 
-      "action": "appEvent", 
-      "command": command,
-      "packageName": packageName,
-
-    });
-  }
-
-  async keyboard(typeKey, key, repeat=0, meta_state=0){
-    return await this.sendData({
-      "action":"keyEvent", 
-      "keyAction":"ACTION_DOWN", 
-      "typeKey": typeKey,
-      "key": key,
-      "repeat":repeat,
-      "meta_state":meta_state
-    });
-  }
-
-  async click(x, y, duration){
-    return await this.sendData({ 
-      "action": "clickEvent", 
-      "x": x, 
-      "y": y, 
-      "duration": duration
-    });
-  }
-
-  async swipe(start_x, start_y, end_x, end_y, duration){
-    return await this.sendData({ 
-      "action": "swipeEvent", 
-      "start_x": start_x, 
-      "start_y": start_y, 
-      "end_x": end_x, 
-      "end_y": end_y, 
-      "duration": duration 
-    });
-  }
-
-  async setText(text){
-    return await this.sendData({ 
-      "action": "setTextEvent", 
-      "text": text,
-    });
-  }
-
 }
 
 //  các key cho sự kiện app
@@ -187,6 +108,81 @@ class findElEvent {
 class clipboardEvent {
   static get = "get";
   static set = "set";
+}
+
+class DevApi {
+  static sendData(data) {
+    data["taskId"] = v4();
+    return data;
+  }
+
+  static toast(text) {
+    return this.sendData({ "action": "toastEvent", text: text });
+  }
+
+  static clipboard(keyName, text="") {
+    return this.sendData({ 
+      "action": "clipboard", 
+      "keyName":keyName, 
+      text: text 
+    });
+  }
+
+  static unlockScreen(){
+    return this.sendData({ "action": "onScreenEvent"});
+  }
+
+  static findElements(keyName, value){
+    return new findElement(keyName, value, this.sendData)
+  }
+
+  static app(command, packageName){
+    return this.sendData({ 
+      "action": "appEvent", 
+      "command": command,
+      "packageName": packageName,
+
+    });
+  }
+
+  static keyboard(typeKey, key, repeat=0, meta_state=0){
+    return this.sendData({
+      "action":"keyEvent", 
+      "keyAction":"ACTION_DOWN", 
+      "typeKey": typeKey,
+      "key": key,
+      "repeat":repeat,
+      "meta_state":meta_state
+    });
+  }
+
+  static click(x, y, duration){
+    return this.sendData({ 
+      "action": "clickEvent", 
+      "x": x, 
+      "y": y, 
+      "duration": duration
+    });
+  }
+
+  static swipe(start_x, start_y, end_x, end_y, duration){
+    return this.sendData({ 
+      "action": "swipeEvent", 
+      "start_x": start_x, 
+      "start_y": start_y, 
+      "end_x": end_x, 
+      "end_y": end_y, 
+      "duration": duration 
+    });
+  }
+
+  static setText(text){
+    return this.sendData({ 
+      "action": "setTextEvent", 
+      "text": text,
+    });
+  }
+
 }
 
 exports.DevApi = DevApi;

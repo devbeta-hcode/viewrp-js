@@ -1,4 +1,4 @@
-## Supported framework (runs best on React)
+## Supported Components framework
 | Framework                  | Compatible with Vite-built components?    | Additional Notes                       |
 |---------------------------|--------------------------------------------|----------------------------------------|
 | **Vite + React**          | ✅ Native compatibility                     | Already based on Vite                  |
@@ -67,7 +67,7 @@ const dataDevice = {
 
 ```node
 <ViewRP
-  serve={`https://viewrp.com/api/v1/client/device/connect-control`}
+  serve={"https://viewrp.com/api/v1/client/device/connect-control"}
   ref={controlRef} // useRef
   dataDevice={dataDevice}
   maxWidth={320} // maximum size of width
@@ -80,4 +80,153 @@ const dataDevice = {
   //   console.log(device_id);  event click sync button
   // }}
 />
+```
+
+## Use the synchronization feature `syncEvent and syncButton`
+
+- pay attention to 2 events in Components `syncEvent` and `syncButton`
+
+- for example create 1 useRef to specify which controlRef is the main
+```node
+const defaultControlRef = useRef(null);
+```
+
+- syncButton when we press the `sync` button in the accessibility menu like `iphone` this event will receive the `device_id` we want to set as `defaultControlRef`
+```node
+syncButton={(device_id)=>{
+  cdefaultControlRef.current = device_id; // set this device_id to which controlRef is the main
+}}
+```
+
+- for example we have a list of `controlRef`
+```node
+const ListControlRef = [controlRef_1, controlRef_2, controlRef_3]; // .... 4,5,6 ....
+```
+
+- syncEvent this is the event of operations such as shortcuts, touch gestures, keyboard
+```node
+syncEvent={(data)=>{
+  ListControlRef.map((item)=>{
+    if(item.current.getDeviceId() != defaultControlRef){ // ignore your own controlRef
+      item.current.sync(data);
+    }
+  })
+}}
+```
+
+## use with api for automation
+
+- `DevApi` to `format` the type of data sent
+
+- use `controlRef` to connect api in Components ViewRP
+```node
+// send api request, put in async/await if you want to get a response
+// get_data is the content returned from DevApi
+const resp = await controlRef.current.api(get_data);
+console.log(resp)
+```
+
+- for example `toast` displays a message on the screen
+```node
+const text = "abc"; // this is the content sent to display
+const get_data = DevApi.toast(text); // return data json
+
+// send api request, put in async/await if you want to get a response
+const resp = await controlRef.current.api(get_data);
+console.log(resp)
+
+// more concise
+const resp = await controlRef.current.api(DevApi.toast("hello"));
+console.log(resp)
+```
+
+- unlock Screen
+```node
+const get_data = DevApi.unlockScreen();
+```
+
+- clipboard `get | set` use `clipboardEvent` to set the type of `keyName`
+```node
+// get
+const get_data = DevApi.clipboard(clipboardEvent.get);
+
+// set
+const text = "abc 123"; // this is the content sent to the clipboard
+const get_data = DevApi.clipboard(clipboardEvent.set, text);
+```
+
+- app `start | stop | clear` use `appEvent` to set `command` type
+```node
+const get_data = DevApi.app(appEvent.start);
+```
+
+- click `x,y`
+```node
+const x = 500; // x coordinate on phone screen
+const y = 500; // y coordinate on phone screen
+const duration = 1; // time to press button in seconds
+const get_data = DevApi.click(x, y, duration);
+```
+
+- keyboard use `keyEvent` to set `typeKey` type (must use ViewRP to use this function)
+```node
+
+// typeKey text key type `str`
+const key = "a";
+const get_data = DevApi.keyboard(keyEvent.text, key);
+
+// typeKey code type `int`
+const key = 29;
+const get_data = DevApi.keyboard(keyEvent.code, key);
+
+// for keystrokes we use `meta_state`
+// for example ctrl+a
+const key = 29;
+const meta_state = 4096;
+const get_data = DevApi.keyboard(keyEvent.code, key, meta_state);
+
+```
+
+- swipe
+```node
+const start_x = 500; // starting x coordinate on phone screen
+const start_y = 200; // starting y coordinate on phone screen
+const end_x = 500; // starting x coordinate on phone screen
+const end_y = 300; // starting y coordinate on phone screen
+const duration = 1; // swipe time in seconds
+const get_data = DevApi.swipe(x, y, duration);
+```
+
+- setText
+```node
+const text = "abc"; // this is the content sent to write to the input
+const get_data = DevApi.setText(text);
+```
+
+- findElements `all | click | setText` use `findElEvent` to set the type `keyName`
+```node
+const value = "chrome"; // this is the value sent to query
+const el = DevApi.findElements(findElEvent.text, value);
+
+// keyName = className
+const value = "android.widget.EditText";
+const el = DevApi.findElements(findElEvent.className, value);
+
+// keyName = resourceId
+const value = "com.google.android.youtube:id/bnt_save";
+const el = DevApi.findElements(findElEvent.resourceId, value); 
+
+// keyName = xpath 
+const value = "//*[@resource-id='com.google.android.youtube:id/related_chip_cloud']/android.widget.LinearLayout[2]"; 
+const el = DevApi.findElements(findElEvent.xpath, value); 
+
+// get all response list `[]` 
+const get_data = el.all() 
+
+// click 
+const get_data = el.click() 
+
+// setText 
+const text = "abc"; // this is the content sent to be written to the input 
+const get_data = el.setText(text)
 ```

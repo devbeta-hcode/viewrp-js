@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-
 const byteToHex = [];
 for (let i = 0; i < 256; ++i) {
     byteToHex.push((i + 0x100).toString(16).slice(1));
@@ -84,7 +80,7 @@ class findElement{
 }
 
 class DevApi {
-  constructor({controlRef}) {
+  constructor(controlRef) {
     this.controlRef = controlRef;
   }
 
@@ -93,7 +89,7 @@ class DevApi {
     return await controlRef.current.api(data);
   }
 
-  async toast({text}) {
+  async toast(text) {
     return await this.sendData({ "action": "toastEvent", text: text });
   }
 
@@ -109,11 +105,11 @@ class DevApi {
     return await this.sendData({ "action": "onScreenEvent"});
   }
 
-  async findElements({keyName, value}){
+  async findElements(keyName, value){
     return new findElement(keyName, value, this.sendData)
   }
 
-  async app({command, packageName}){
+  async app(command, packageName){
     return await this.sendData({ 
       "action": "appEvent", 
       "command": command,
@@ -122,7 +118,7 @@ class DevApi {
     });
   }
 
-  async keyboard({typeKey, key, repeat=0, meta_state=0}){
+  async keyboard(typeKey, key, repeat=0, meta_state=0){
     return await this.sendData({
       "action":"keyEvent", 
       "keyAction":"ACTION_DOWN", 
@@ -133,7 +129,7 @@ class DevApi {
     });
   }
 
-  async click({x, y, duration=1}){
+  async click(x, y, duration){
     return await this.sendData({ 
       "action": "clickEvent", 
       "x": x, 
@@ -142,7 +138,7 @@ class DevApi {
     });
   }
 
-  async swipe({start_x, start_y, end_x, end_y, duration=1}){
+  async swipe(start_x, start_y, end_x, end_y, duration){
     return await this.sendData({ 
       "action": "swipeEvent", 
       "start_x": start_x, 
@@ -153,7 +149,7 @@ class DevApi {
     });
   }
 
-  async setText({text}){
+  async setText(text){
     return await this.sendData({ 
       "action": "setTextEvent", 
       "text": text,
@@ -189,8 +185,4 @@ class clipboardEvent {
   static set = "set";
 }
 
-exports.DevApi = DevApi;
-exports.appEvent = appEvent;
-exports.clipboardEvent = clipboardEvent;
-exports.findElEvent = findElEvent;
-exports.keyEvent = keyEvent;
+export { DevApi, appEvent, clipboardEvent, findElEvent, keyEvent };

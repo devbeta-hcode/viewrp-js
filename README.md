@@ -86,15 +86,15 @@ const dataDevice = {
 
 - pay attention to 2 events in Components `syncEvent` and `syncButton`
 
-- for example create 1 useRef to specify which controlRef is the main
+- for example create 1 useState to specify which controlRef is the main
 ```node
-const defaultControlRef = useRef(null);
+const [defaultDeviceId, setDefaultDeviceId] = useState(null);
 ```
 
 - syncButton when we press the `sync` button in the accessibility menu like `iphone` this event will receive the `device_id` we want to set as `defaultControlRef`
 ```node
 syncButton={(device_id)=>{
-  cdefaultControlRef.current = device_id; // set this device_id to which controlRef is the main
+  setDefaultDeviceId(device_id); // set this device_id to which controlRef is the main
 }}
 ```
 
@@ -105,12 +105,12 @@ const ListControlRef = [controlRef_1, controlRef_2, controlRef_3]; // .... 4,5,6
 
 - syncEvent this is the event of operations such as shortcuts, touch gestures, keyboard
 ```node
-syncEvent={(data)=>{
+syncEvent={dataDevice.device_id===defaultDeviceId ? (data)=>{
   ListControlRef.map((item)=>{
-    if(item.current.getDeviceId() != defaultControlRef){ // ignore your own controlRef
+    if(item.current.getDeviceId() != defaultDeviceId){ // ignore your own controlRef
       item.current.sync(data);
     }
-  })
+  }: null)
 }}
 ```
 

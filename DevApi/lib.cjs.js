@@ -145,7 +145,7 @@ class DevApi {
     });
   }
 
-  static keyboard(typeKey, key, repeat=0, meta_state=0){
+  static keyboard(typeKey, key, meta_state=0, repeat=0){
     return this.sendData({
       "action":"keyEvent", 
       "keyAction":"ACTION_DOWN", 

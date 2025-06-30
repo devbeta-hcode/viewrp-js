@@ -84,6 +84,9 @@ const dataDevice = {
   // }}
 />
 ```
+
+<br>
+
 ## Codec
 
 | Codec String         | Meaning (Profile / Level)                           | When to Use                                                  |
@@ -92,6 +95,7 @@ const dataDevice = {
 | `"avc1.4D001E"`      | H.264 **Main**, Level 3.0                           | For general-purpose streaming, good browser/device support   |
 | `"avc1.64001E"`      | H.264 **High**, Level 3.0                           | Higher quality, commonly used with Android MediaCodec        |
 
+<br>
 
 ## hardwareAcceleration
 | Value                 | Meaning                                                                | When to Use                                        |
@@ -102,6 +106,8 @@ const dataDevice = {
 | `"require-hardware"`  | Must use hardware acceleration, will fail if not available             | For systems you fully control, e.g., media centers |
 | `"require-software"`  | Must use software decoding, will fail if not available                 | For debugging, benchmarking software quality       |
 
+
+<br>
 
 ## Use the synchronization feature `syncEvent and syncButton`
 

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "About This is a React library developed by Control ViewRP and released by DEV BETA JOIN STOCK COMPANY, you can use components for your project",
   "name": "viewrp-js",
   "repository": {
@@ -9,7 +9,7 @@
   "keywords": ["react", "next.js", "components", "remote phone", "phone cloud", "viewrp", "ViewRP"],
   "author": {
     "name": "ViewRP by DEV BETA JOIN STOCK COMPANY",
-    "url": "https://your-website.com"
+    "url": "https://viewrp.com"
   },
   "license": "MIT",
   "bugs": {

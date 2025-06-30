@@ -63,12 +63,15 @@ const dataDevice = {
 };
 ```
 
+
 ## use
 
 ```node
 <ViewRP
   serve={"https://viewrp.com/api/v1/client/device/connect-control"}
   ref={controlRef} // useRef
+  codec={"avc1.42001E"}
+  hardwareAcceleration={"prefer-hardware"}
   dataDevice={dataDevice}
   maxWidth={320} // maximum size of width
   showAssistive={true} // show accessibility button
@@ -81,6 +84,24 @@ const dataDevice = {
   // }}
 />
 ```
+## Codec
+
+| Codec String         | Meaning (Profile / Level)                           | When to Use                                                  |
+| -------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| `"avc1.42001E"`      | H.264 **Baseline**, Level 3.0                       | For low-end devices, basic streams, highest compatibility    |
+| `"avc1.4D001E"`      | H.264 **Main**, Level 3.0                           | For general-purpose streaming, good browser/device support   |
+| `"avc1.64001E"`      | H.264 **High**, Level 3.0                           | Higher quality, commonly used with Android MediaCodec        |
+
+
+## hardwareAcceleration
+| Value                 | Meaning                                                                | When to Use                                        |
+| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------- |
+| `"no-preference"`     | Let the browser decide automatically                                   | Default if you don’t set anything                  |
+| `"prefer-hardware"` ✅ | Prefer hardware acceleration (GPU/SoC), fallback to software if needed | **Best for low latency**, and avoids crashes       |
+| `"prefer-software"`   | Prefer software decoding, use hardware only if necessary               | Rarely used, only when hardware decoding has bugs  |
+| `"require-hardware"`  | Must use hardware acceleration, will fail if not available             | For systems you fully control, e.g., media centers |
+| `"require-software"`  | Must use software decoding, will fail if not available                 | For debugging, benchmarking software quality       |
+
 
 ## Use the synchronization feature `syncEvent and syncButton`
 

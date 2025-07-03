@@ -63,12 +63,17 @@ const dataDevice = {
 };
 ```
 
+## `maxWidth` This is the maximum width size when in portrait, with landscape everything will automatically fit
+
+```node
+const [maxWidth, setMaxWidth] = useState(333);
+```
 
 ## use
 
 ```node
 <ViewRP
-  serve={"https://viewrp.com/api/v1/client/device/connect-control"}
+  api={"https://viewrp.com/api/v1/client/device/connect-control"}
   ref={controlRef} // useRef
   codec={"avc1.42001E"}
   hardwareAcceleration={"prefer-hardware"}
@@ -76,10 +81,10 @@ const dataDevice = {
   maxWidth={320} // maximum size of width
   showAssistive={true} // show accessibility button
   showDeviceId={true} // display DeviceId
-  // syncEvent={(data)=>{
+  // onSyncEvent={(data)=>{
   //   console.log(data); // receive event to synchronize operation
   // }}
-  // syncButton={(device_id)=>{
+  // onSyncButton={(device_id)=>{
   //   console.log(device_id);  event click sync button
   // }}
 />
@@ -118,9 +123,9 @@ const dataDevice = {
 const [defaultDeviceId, setDefaultDeviceId] = useState(null);
 ```
 
-- syncButton when we press the `sync` button in the accessibility menu like `iphone` this event will receive the `device_id` we want to set as `defaultControlRef`
+- onSyncButton when we press the `sync` button in the accessibility menu like `iphone` this event will receive the `device_id` we want to set as `defaultControlRef`
 ```node
-syncButton={(device_id)=>{
+onSyncButton={(device_id)=>{
   setDefaultDeviceId(device_id); // set this device_id to which controlRef is the main
 }}
 ```
@@ -130,9 +135,9 @@ syncButton={(device_id)=>{
 const ListControlRef = [controlRef_1, controlRef_2, controlRef_3]; // .... 4,5,6 ....
 ```
 
-- syncEvent this is the event of operations such as shortcuts, touch gestures, keyboard
+- onSyncEvent this is the event of operations such as shortcuts, touch gestures, keyboard
 ```node
-syncEvent={dataDevice.device_id===defaultDeviceId ? (data)=>{
+onSyncEvent={dataDevice.device_id===defaultDeviceId ? (data)=>{
   ListControlRef.map((item)=>{
     if(item.current.getDeviceId() != defaultDeviceId){ // ignore your own controlRef
       item.current.sync(data);

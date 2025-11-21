@@ -1,12 +1,20 @@
 {
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "About This is a React library developed by Control ViewRP and released by DEV BETA JOIN STOCK COMPANY, you can use components for your project",
   "name": "viewrp-js",
   "repository": {
     "type": "git",
     "url": "https://github.com/devbeta-hcode/viewrp-js"
   },
-  "keywords": ["react", "next.js", "components", "remote phone", "phone cloud", "viewrp", "ViewRP"],
+  "keywords": [
+    "react",
+    "next.js",
+    "components",
+    "remote phone",
+    "phone cloud",
+    "viewrp",
+    "ViewRP"
+  ],
   "author": {
     "name": "ViewRP by DEV BETA JOIN STOCK COMPANY",
     "url": "https://viewrp.com"
@@ -19,14 +27,19 @@
   "exports": {
     "./Components": {
       "import": "./Components/lib.es.js",
+      "types": "./Components/index.d.ts",
       "require": "./Components/lib.cjs.js"
     },
-     "./DevApi": {
+    "./DevApi": {
       "import": "./DevApi/lib.es.js",
+      "types": "./DevApi/index.d.ts",
       "require": "./DevApi/lib.cjs.js"
     }
   },
-  "files": ["Components","DevApi"],
+  "files": [
+    "Components",
+    "DevApi"
+  ],
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

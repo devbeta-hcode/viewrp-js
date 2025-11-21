@@ -58,8 +58,8 @@ const controlRef = useRef(null);
 
 ```node
 const dataDevice = {
-  device_id: 21408686,
-  passwd: 12345
+  device_id: "21408686",
+  passwd: "12345"
 };
 ```
 

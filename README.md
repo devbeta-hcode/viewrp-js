@@ -134,98 +134,111 @@ onSyncEvent={dataDevice.device_id===defaultDeviceId ? (data)=>{
 
 ## use with api for automation
 
-- for example `toast` displays a message on the screen
-```node
-await controlRef.toast("abc"); // return data json
-```
-
-- unlock Screen
-```node
-await controlRef.unlockScreen();
-```
-
-- clipboard `get | set` use `clipboardEvent` to set the type of `keyName`
-```node
-// get
-const get_data = DevApi.clipboard(clipboardEvent.get);
-
-// set
-const text = "abc 123"; // this is the content sent to the clipboard
-const get_data = DevApi.clipboard(clipboardEvent.set, text);
-```
-
-- app `start | stop | clear` use `appEvent` to set `command` type
-```node
-const get_data = DevApi.app(appEvent.start);
-```
-
-- click `x,y`
-```node
-const x = 500; // x coordinate on phone screen
-const y = 500; // y coordinate on phone screen
-const duration = 1; // time to press button in seconds
-const get_data = DevApi.click(x, y, duration);
-```
-
-- keyboard use `keyEvent` to set `typeKey` type (must use ViewRP to use this function)
-```node
-
-// typeKey text key type `str`
-const key = "a";
-const get_data = DevApi.keyboard(keyEvent.text, key);
-
-// typeKey code type `int`
-const key = 29;
-const get_data = DevApi.keyboard(keyEvent.code, key);
-
-// for keystrokes we use `meta_state`
-// for example ctrl+a
-const key = 29;
-const meta_state = 4096;
-const get_data = DevApi.keyboard(keyEvent.code, key, meta_state);
+```javascript
+declare interface ElementWrapper {
+  click({index, retry_time, timeout}:{index?:number, retry_time?:number, timeout?:number}): Promise<void>;
+  setText({text, index, retry_time, timeout}:{text:string,index?:number, retry_time?:number, timeout?:number}): Promise<void>;
+  all({retry_time, timeout}:{retry_time?:number, timeout?:number}): Promise<any[]>;
+}
+declare interface DeviceController {
+  jsloop(iterations: number, callback: (index: number) => Promise<void>): Promise<void>;
+  pause(is_pause: boolean): void;
+  deviceId(): string;
+  resolution(): { width: number, height: number, orientation: number };
+  screenshot(): string;
+  sleep(timeout?: number): Promise<any>;
+  toast(text: string, timeout?: number): Promise<any>;
+  unlockScreen(timeout?: number): Promise<any>;
+  pressHome(timeout?: number): Promise<any>;
+  pressBack(timeout?: number): Promise<any>;
+  pressSwitch(timeout?: number): Promise<any>;
+  getClipboard(timeout?: number): Promise<string>;
+  setClipboard(text: string, timeout?: number): Promise<any>;
+  appStart(packageName: string, timeout?: number): Promise<any>;
+  appStop(packageName: string, timeout?: number): Promise<any>;
+  appClear(packageName: string, timeout?: number): Promise<any>;
+  appInfo(packageName: string, timeout?: number): Promise<any>;
+  click(x: number, y: number, duration?: number, timeout?: number): Promise<any>;
+  swipe(start_x: number, start_y: number, end_x: number, end_y: number, duration: number, timeout?: number): Promise<any>;
+  keyCode(key: number, meta_state?: number, repeat?: boolean, timeout?: number): Promise<any>;
+  keyText(text: string, timeout?: number): Promise<any>;
+  setText(text: string, timeout?: number): Promise<any>;
+  findElements(strategy: 'resourceId' | 'text' | 'xpath' | 'className', value: string): ElementWrapper;
+}
 
 ```
 
-- swipe
-```node
-const start_x = 500; // starting x coordinate on phone screen
-const start_y = 200; // starting y coordinate on phone screen
-const end_x = 500; // starting x coordinate on phone screen
-const end_y = 300; // starting y coordinate on phone screen
-const duration = 1; // swipe time in seconds
-const get_data = DevApi.swipe(x, y, duration);
-```
+### **System & Hardware Actions**
+* **`unlockScreen(timeout?)`**: Wakes up the device and unlocks the lock screen.
+* **`pressHome(timeout?)`**: Simulates pressing the physical **Home** button.
+* **`pressBack(timeout?)`**: Simulates pressing the **Back** button.
+* **`pressSwitch(timeout?)`**: Opens the **Recent Apps** / App Switcher screen.
+* **`keyCode(key, ...)`**: Sends a specific Android KeyCode (e.g., `66` for Enter, `24` for Volume Up).
+* **`keyText(text)`**: Sends raw keyboard input text.
+* **`setText(text)`**: Sets text directly (usually used for focused fields).
+* **`toast(text)`**: Displays a small popup message on the device screen.
+* **`setClipboard(text)` / `getClipboard()`**: Writes to or reads from the device's system clipboard.
 
-- setText
-```node
-const text = "abc"; // this is the content sent to write to the input
-const get_data = DevApi.setText(text);
-```
+### **Screen & Touch Gestures**
+* **`click(x, y, duration?, timeout?)`**: Taps the screen at specific coordinates `(x, y)`.
+* **`swipe(start_x, start_y, end_x, end_y, duration)`**: Performs a swipe gesture from start to end points.
+* **`resolution()`**: Returns the device's width, height, and orientation.
+* **`screenshot()`**: Returns the current screen capture as a string.
 
-- findElements `all | click | setText` use `findElEvent` to set the type `keyName`
-```node
-const value = "chrome"; // this is the value sent to query
-const el = DevApi.findElements(findElEvent.text, value);
+### **App Management**
+* **`appStart(packageName)`**: Launches an application (e.g., `com.android.chrome`).
+* **`appStop(packageName)`**: Force-stops a running application (Requires root or system privileges).
+* **`appClear(packageName)`**: Clears all data and cache for the specified app (Requires root or system privileges).
+* **`appInfo(packageName)`**: Retrieves version and package details.
 
-// keyName = className
-const value = "android.widget.EditText";
-const el = DevApi.findElements(findElEvent.className, value);
+### **Data & Utilities**
+* **`jsloop(iterations, callback)`**: A high-performance loop optimized for ViewRP infrastructure.
+* **`pause(is_pause)`**: Pauses or resumes the execution of the script.
+* **`sleep(timeout?)`**: Pauses the script for a duration (milliseconds).
+* **`deviceId()`**: Returns the unique ID of the current device.
 
-// keyName = resourceId
-const value = "com.google.android.youtube:id/bnt_save";
-const el = DevApi.findElements(findElEvent.resourceId, value); 
+---
 
-// keyName = xpath 
-const value = "//*[@resource-id='com.google.android.youtube:id/related_chip_cloud']/android.widget.LinearLayout[2]"; 
-const el = DevApi.findElements(findElEvent.xpath, value); 
+## 2. ElementWrapper Interface
+Instead of using raw coordinates, `ElementWrapper` allows you to interact with UI components (buttons, text fields) intelligently.
 
-// get all response list `[]` 
-const get_data = el.all() 
+### **Finding Elements**
+Use `device.findElements(strategy, value)` to target elements.
 
-// click 
-const get_data = el.click() 
+| Strategy | Description | Example Value |
+| :--- | :--- | :--- |
+| `resourceId` | The unique ID in the app's code. | `com.android.settings:id/title` |
+| `text` | The literal text displayed on screen. | `Login` |
+| `className` | The Android View class type. | `android.widget.Button` |
+| `xpath` | A XML-like path to the element. | `//android.widget.LinearLayout[1]` |
 
-// setText 
-const text = "abc"; // this is the content sent to be written to the input 
-const get_data = el.setText(text)
+### **Available Actions**
+* **`click({index, retry_time, timeout})`**: Clicks the found element. Use `index` if multiple elements are found (starts at `0`).
+* **`setText({text, index, ...})`**: Inputs text into a text field.
+* **`all({retry_time, timeout})`**: Returns an array of all elements matching the criteria.
+
+---
+
+## 3. Practical Example
+Here is a simple script to open a browser and search for a website:
+
+```javascript
+async function searchTask() {
+    // 1. Open Chrome
+    await device.appStart("com.android.chrome");
+    await device.sleep(2000);
+
+    // 2. Find the search bar using its Class Name
+    const inputs = device.findElements('className', 'android.widget.EditText');
+    
+    // 3. Type "ViewRP" into the first input field found
+    await inputs.setText({ text: "ViewRP", index: 0 });
+
+    // 4. Press Enter Key
+    await device.keyCode(66);
+    
+    // 5. Notify the user via a Toast
+    await device.toast("Search Command Sent!");
+}
+
 ```

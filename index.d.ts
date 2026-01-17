@@ -7,23 +7,14 @@ export interface DataDevice {
 
 export interface ViewRPProps {
   ref?: Ref<any>;
-
   maxWidth?: number;
-
   api: string;
-
   codec?: "avc1.42001E" | "avc1.4D001E" | "avc1.64001E";
-
-  hardwareAcceleration?: "prefer-hardware" | null;
-
+  hardwareAcceleration?: "no-preference" | "prefer-hardware" | "prefer-software" | "require-hardware" | "require-software" null;
   dataDevice: DataDevice;
-
   showAssistive?: boolean;
-
   showDeviceId?: boolean;
-
   onSyncEvent?: (data: any) => void;
-
   onSyncButton?: (deviceId: string) => void;
 }
 

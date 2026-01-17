@@ -25,21 +25,13 @@
   },
   "homepage": "https://viewrp.com",
   "exports": {
-    "./Components": {
-      "import": "./Components/lib.es.js",
-      "types": "./Components/index.d.ts",
-      "require": "./Components/lib.cjs.js"
-    },
-    "./DevApi": {
-      "import": "./DevApi/lib.es.js",
-      "types": "./DevApi/index.d.ts",
-      "require": "./DevApi/lib.cjs.js"
+    ".": {
+      "import": "./index.es.js",
+      "types": "./index.d.ts",
+      "require": "./index.cjs.js"
     }
   },
-  "files": [
-    "Components",
-    "DevApi"
-  ],
+  "files": ["./"],
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

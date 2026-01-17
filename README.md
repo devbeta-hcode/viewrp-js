@@ -22,28 +22,14 @@
 ## import
 
 ```node
-import { ViewRP } from "viewrp-js/Components";
-import { 
-  DevApi, 
-  appEvent, 
-  keyEvent, 
-  findElEvent, 
-  clipboardEvent 
-} from "viewrp-js/DevApi";
+import { ViewRP } from "viewrp-js";
 
 ```
 
 ## require
 
 ```node
-const { ViewRP } = require("viewrp-js/Components");
-const { 
-  DevApi, 
-  appEvent, 
-  keyEvent, 
-  findElEvent, 
-  clipboardEvent 
-} = require("viewrp-js/DevApi");
+const { ViewRP } = require("viewrp-js");
 
 ```
 
@@ -148,33 +134,14 @@ onSyncEvent={dataDevice.device_id===defaultDeviceId ? (data)=>{
 
 ## use with api for automation
 
-- `DevApi` to `format` the type of data sent
-
-- use `controlRef` to connect api in Components ViewRP
-```node
-// send api request, put in async/await if you want to get a response
-// get_data is the content returned from DevApi
-const resp = await controlRef.current.api(get_data);
-console.log(resp)
-```
-
 - for example `toast` displays a message on the screen
 ```node
-const text = "abc"; // this is the content sent to display
-const get_data = DevApi.toast(text); // return data json
-
-// send api request, put in async/await if you want to get a response
-const resp = await controlRef.current.api(get_data);
-console.log(resp)
-
-// more concise
-const resp = await controlRef.current.api(DevApi.toast("hello"));
-console.log(resp)
+await controlRef.toast("abc"); // return data json
 ```
 
 - unlock Screen
 ```node
-const get_data = DevApi.unlockScreen();
+await controlRef.unlockScreen();
 ```
 
 - clipboard `get | set` use `clipboardEvent` to set the type of `keyName`

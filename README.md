@@ -143,9 +143,9 @@ declare interface ElementWrapper {
 declare interface DeviceController {
   jsloop(iterations: number, callback: (index: number) => Promise<void>): Promise<void>;
   pause(is_pause: boolean): void;
-  deviceId(): string;
+  deviceId(): {base64: string};
   resolution(): { width: number, height: number, orientation: number };
-  screenshot(): string;
+  screenshot(): {device_id: string};
   sleep(timeout?: number): Promise<any>;
   toast(text: string, timeout?: number): Promise<any>;
   unlockScreen(timeout?: number): Promise<any>;

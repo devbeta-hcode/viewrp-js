@@ -67,6 +67,7 @@ const [maxWidth, setMaxWidth] = useState(333);
   maxWidth={320} // maximum size of width
   showAssistive={true} // show accessibility button
   showDeviceId={true} // display DeviceId
+  autoResize={true},
   // onSyncEvent={(data)=>{
   //   console.log(data); // receive event to synchronize operation
   // }}
@@ -94,8 +95,6 @@ const [maxWidth, setMaxWidth] = useState(333);
 | `"no-preference"`     | Let the browser decide automatically                                   | Default if you don’t set anything                  |
 | `"prefer-hardware"` ✅ | Prefer hardware acceleration (GPU/SoC), fallback to software if needed | **Best for low latency**, and avoids crashes       |
 | `"prefer-software"`   | Prefer software decoding, use hardware only if necessary               | Rarely used, only when hardware decoding has bugs  |
-| `"require-hardware"`  | Must use hardware acceleration, will fail if not available             | For systems you fully control, e.g., media centers |
-| `"require-software"`  | Must use software decoding, will fail if not available                 | For debugging, benchmarking software quality       |
 
 
 <br>
@@ -143,9 +142,9 @@ declare interface ElementWrapper {
 declare interface DeviceController {
   jsloop(iterations: number, callback: (index: number) => Promise<void>): Promise<void>;
   pause(is_pause: boolean): void;
-  deviceId(): {base64: string};
+  deviceId(): {id: string};
   resolution(): { width: number, height: number, orientation: number };
-  screenshot(): {device_id: string};
+  screenshot(): {base64: string};
   sleep(timeout?: number): Promise<any>;
   toast(text: string, timeout?: number): Promise<any>;
   unlockScreen(timeout?: number): Promise<any>;
